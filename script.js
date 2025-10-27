@@ -74,3 +74,37 @@ if (form) {
     }
   });
 }
+// Offset in-page anchor scrolling by the sticky header's height
+(function () {
+  const header = document.querySelector('.site-header');
+  if (!header) return;
+
+  function applyOffset() {
+    const h = header.offsetHeight || 0;
+    // scroll-padding-top works with :target and anchor navigation
+    document.documentElement.style.scrollPaddingTop = `${h}px`;
+  }
+
+  // Set once and update on resize (mobile address bar changes too)
+  applyOffset();
+  window.addEventListener('resize', applyOffset);
+
+  // Optional: smooth-scroll behavior if you want it JS-side
+  // (You can keep CSS scroll-behavior: smooth instead)
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      const target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      const h = header.offsetHeight || 0;
+      const y = target.getBoundingClientRect().top + window.scrollY - h;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+      // Close mobile menu if open
+      document.getElementById('menu')?.classList.remove('open');
+      const btn = document.getElementById('hamburger');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    });
+  });
+})();
+
