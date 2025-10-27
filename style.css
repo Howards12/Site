@@ -37,7 +37,7 @@ figure{margin:0}
 }
 
 .brand{display:flex; align-items:center; gap:14px}
-.brand img{height:100px; width:auto}
+.brand img{height:250px; width:auto}
 
 .menu{display:flex; gap:18px; align-items:center}
 .menu a{padding:8px 10px; border-radius:10px}
@@ -137,4 +137,5 @@ textarea{min-height:120px}
   /* Keep your logo big overall, but cap it on very small screens */
   .brand img{height:140px}
 }
+
 
