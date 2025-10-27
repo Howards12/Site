@@ -159,7 +159,17 @@
     </div>
   </footer>
 
+  <script>
+  if (location.hostname.includes('github.io')) {
+    document.body.insertAdjacentHTML(
+      'beforeend',
+      '<footer class="preview-note">Preview version — not final domain</footer>'
+    );
+  }
+</script>
+
   <script src="script.js" defer></script>
 </body>
 </html>
+
 
