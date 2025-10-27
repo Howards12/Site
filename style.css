@@ -8,6 +8,8 @@
   --radius:18px;
   --shadow:0 10px 30px rgba(0,0,0,.08);
 }
+
+/* Base */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
@@ -17,6 +19,7 @@ body{
 }
 img{max-width:100%; display:block}
 a{text-decoration:none; color:inherit}
+figure{margin:0}
 .container{max-width:var(--max); margin:0 auto; padding:0 20px}
 
 /* Header */
@@ -30,10 +33,11 @@ a{text-decoration:none; color:inherit}
   align-items:center;
   justify-content:space-between;
   gap:12px;
-  padding:8px 0;   /* reduce top/bottom padding */
+  padding:8px 0;
 }
 
 .brand{display:flex; align-items:center; gap:14px}
+/* You said the logo is fine — keeping the big size on desktop */
 .brand img{height:250px; width:auto}
 
 .menu{display:flex; gap:18px; align-items:center}
@@ -57,11 +61,16 @@ a{text-decoration:none; color:inherit}
 .copy h2{font-family:"Playfair Display",serif; font-size:44px; line-height:1.1; margin:0 0 14px}
 .copy p{color:var(--muted); font-size:18px; margin:0 0 26px}
 .actions{display:flex; gap:12px}
+
 .hero-card{
   background:var(--card); border:1px solid var(--ring); border-radius:var(--radius);
   box-shadow:var(--shadow); aspect-ratio:4/3; display:flex; align-items:center; justify-content:center;
+  overflow:hidden; /* NEW: so the image crops cleanly */
 }
-.hero-card span{opacity:.65; letter-spacing:.12em; font-size:12px; text-transform:uppercase}
+/* NEW: actually show the hero image correctly */
+.hero-card img{
+  width:100%; height:100%; object-fit:cover; object-position:center;
+}
 
 /* Sections */
 section{padding:64px 0}
@@ -76,8 +85,21 @@ section{padding:64px 0}
 
 /* Portfolio grid */
 .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
-.tile{border-radius:14px; overflow:hidden; border:1px solid var(--ring); background:#d9d9d9; aspect-ratio:4/3; position:relative}
-.tile::after{content:"Portfolio"; position:absolute; right:10px; bottom:10px; background:rgba(0,0,0,.45); color:#fff; font-size:12px; padding:6px 8px; border-radius:8px; letter-spacing:.1em}
+.tile{
+  border-radius:14px; overflow:hidden; border:1px solid var(--ring);
+  background:#d9d9d9; aspect-ratio:4/3; position:relative;
+}
+/* NEW: make the grid images fill their tiles */
+.tile img{
+  width:100%; height:100%; object-fit:cover; object-position:center;
+}
+/* OPTIONAL: remove the “Portfolio” tag on each tile. Comment in if you want it back */
+/*
+.tile::after{
+  content:"Portfolio"; position:absolute; right:10px; bottom:10px;
+  background:rgba(0,0,0,.45); color:#fff; font-size:12px; padding:6px 8px; border-radius:8px; letter-spacing:.1em
+}
+*/
 
 /* About */
 .about-wrap{display:grid; grid-template-columns:1fr 1fr; gap:24px}
@@ -113,4 +135,6 @@ textarea{min-height:120px}
         transform:translateY(-120%); transition:transform .25s ease; padding:12px 20px; gap:8px; flex-direction:column}
   .menu.open{transform:translateY(0)}
   .hamburger{display:block}
+  /* Keep your logo big overall, but cap it on very small screens */
+  .brand img{height:140px}
 }
